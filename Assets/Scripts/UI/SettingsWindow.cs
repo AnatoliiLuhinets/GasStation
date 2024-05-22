@@ -21,8 +21,11 @@ namespace UI
             {
                 _soundsSlider.value = PlayerPrefsExtensions.GetFloat(Consts.AudioState.AudioVolumeValueKey);
             }
-            
-            AudioManager.Instance.SetAudioState(PlayerPrefsExtensions.GetBool(Consts.AudioState.AudioStateKey));
+
+            if (PlayerPrefsExtensions.HasKey(Consts.AudioState.AudioStateKey))
+            {
+                AudioManager.Instance.SetAudioState(PlayerPrefsExtensions.GetBool(Consts.AudioState.AudioStateKey));
+            }
             
             _sceneLoader = FindObjectOfType<SceneLoader>();
             
