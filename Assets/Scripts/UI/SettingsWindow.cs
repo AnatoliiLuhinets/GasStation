@@ -1,0 +1,60 @@
+using Common;
+using Constants;
+using Managers;
+using UI.MainMenu;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace UI
+{
+    public class SettingsWindow : WindowBase
+    {
+        [SerializeField] private Button _exitButton;
+        [SerializeField] private SoundToggle _soundToggle;
+        [SerializeField] private Slider _soundsSlider;
+
+        private SceneLoader _sceneLoader;
+
+        protected override void OnAwake()
+        {
+            if(PlayerPrefsExtensions.HasKey(Consts.AudioState.AudioVolumeValueKey))
+            {
+                _soundsSlider.value = PlayerPrefsExtensions.GetFloat(Consts.AudioState.AudioVolumeValueKey);
+            }
+            
+            AudioManager.Instance.SetAudioState(PlayerPrefsExtensions.GetBool(Consts.AudioState.AudioStateKey));
+            
+            _sceneLoader = FindObjectOfType<SceneLoader>();
+            
+            _exitButton.onClick.AddListener(OnExitButtonClicked);
+            _soundsSlider.onValueChanged.AddListener(OnSoundsSliderValueChanged);
+            
+            base.OnAwake();
+        }
+        
+        private void OnSoundsSliderValueChanged(float value)
+        {
+            AudioManager.Instance.SetVolume(value);
+
+            _soundToggle.ChangeActiveState(value == 0);
+        }
+
+        private void OnExitButtonClicked()
+        {
+            _sceneLoader.LoadScene(Consts.Scenes.MainMenuScene);
+        }
+
+        protected override void Destroyed()
+        {
+            _exitButton.onClick.RemoveAllListeners();
+            _soundsSlider.onValueChanged.RemoveAllListeners();
+            
+            base.Destroyed();
+        }
+
+        public override void OpenPanel()
+        {
+            MainPanel.SetActive(true);
+        }
+    }
+}
