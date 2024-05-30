@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &7351958196495927197
 RectTransform:
@@ -86,12 +86,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5295647414412863375}
   - component: {fileID: 6042497876899259627}
+  - component: {fileID: 5432017061943323465}
   m_Layer: 5
   m_Name: GameGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647414412863375
 RectTransform:
@@ -135,6 +136,21 @@ MonoBehaviour:
   _coins: {fileID: 5295647415552587032}
   _settingsWindow: {fileID: 5295647414608414978}
   _upgradeWindow: {fileID: 5295647415205811098}
+--- !u!114 &5432017061943323465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295647414412863372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5bfa6c486d9dc46835a2676ab169c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _windows:
+  - {fileID: 5295647414608414978}
+  - {fileID: 5295647415205811098}
 --- !u!1 &5295647414938878888
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +167,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647414938878891
 RectTransform:
@@ -227,7 +243,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647415552587033
 RectTransform:
@@ -362,7 +378,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647415767568509
 RectTransform:
@@ -441,7 +457,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647415819334862
 RectTransform:
@@ -562,7 +578,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5295647415959020437
 RectTransform:
@@ -639,7 +655,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2933728832287120789
 RectTransform:
@@ -751,11 +767,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5295647414412863375}
     m_Modifications:
-    - target: {fileID: 5480737146680534348, guid: ee6acc8edbebf49478404666313ef38d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5480737147422924468, guid: ee6acc8edbebf49478404666313ef38d,
         type: 3}
       propertyPath: m_Name
@@ -865,16 +876,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480737147974340369, guid: ee6acc8edbebf49478404666313ef38d,
-        type: 3}
-      propertyPath: m_VerticalScrollbar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5480737147974340369, guid: ee6acc8edbebf49478404666313ef38d,
-        type: 3}
-      propertyPath: m_HorizontalScrollbar
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee6acc8edbebf49478404666313ef38d, type: 3}

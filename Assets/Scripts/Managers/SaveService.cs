@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Managers
@@ -8,38 +9,38 @@ namespace Managers
     [Serializable]
     public class ItemEntry
     {
-        public string ObjectID;
-        public int CurrentID;
+        [field: SerializeField] public string ObjectID { get; set; }
+        [field: SerializeField] public int CurrentID { get; set; }
     }
 
     [Serializable]
     public class AllItemsState
     {
-        public List<ItemEntry> Items = new List<ItemEntry>();
+        [field: SerializeField] public List<ItemEntry> Items = new List<ItemEntry>();
     }
 
     [Serializable]
     public class UserMoney
     {
-        public int MoneyCount;
+        [field: SerializeField] public int MoneyCount { get; set; }
     }
 
     public static class SaveService
     {
-        public static void SaveItem(string objectId, int currentId, string path)
+        public static async UniTask SaveItem(string objectId, int currentId, string path)
         {
             AllItemsState allItemsState;
 
             if (File.Exists(path))
             {
-                string allItemsJson = File.ReadAllText(path);
+                string allItemsJson = await File.ReadAllTextAsync(path);
                 allItemsState = JsonUtility.FromJson<AllItemsState>(allItemsJson) ?? new AllItemsState();
             }
             else
             {
                 allItemsState = new AllItemsState();
             }
-            
+
             var item = allItemsState.Items.Find(x => x.ObjectID == objectId);
             if (item == null)
             {
@@ -52,9 +53,10 @@ namespace Managers
             }
 
             var json = JsonUtility.ToJson(allItemsState, true);
+            
             try
             {
-                File.WriteAllText(path, json);
+                await File.WriteAllTextAsync(path, json);
             }
             catch (Exception ex)
             {
@@ -80,13 +82,13 @@ namespace Managers
             return null;
         }
 
-        public static void SaveUserMoney(int moneyCount, string path)
+        public static async UniTask SaveUserProgress(int moneyCount, string path)
         {
             UserMoney userMoney = new UserMoney { MoneyCount = moneyCount };
             string json = JsonUtility.ToJson(userMoney, true);
             try
             {
-                File.WriteAllText(path, json);
+                await File.WriteAllTextAsync(path, json);
             }
             catch (Exception ex)
             {
@@ -94,7 +96,7 @@ namespace Managers
             }
         }
 
-        public static int? LoadUserMoney(string path)
+        public static int? LoadUserProgress(string path)
         {
             if (File.Exists(path))
             {

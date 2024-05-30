@@ -1,32 +1,24 @@
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Managers
 {
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoader
     {
         public void LoadScene(string sceneName)
         {
-            StartCoroutine(LoadSceneWithLoadingScreen(sceneName));
+            LoadSceneWithLoadingScreen(sceneName).Forget();
         }
         
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        IEnumerator LoadSceneWithLoadingScreen(string sceneName)
+        private async UniTask LoadSceneWithLoadingScreen(string sceneName)
         {
             SceneManager.LoadSceneAsync(Constants.Consts.Scenes.LoadingScene, LoadSceneMode.Single);
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
+            await new WaitWhile(() => !operation.isDone);
+            
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         }
     }

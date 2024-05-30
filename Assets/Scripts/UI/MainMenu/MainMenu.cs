@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Constants;
 using Managers;
 using UnityEngine;
+using Zenject;
 
 namespace UI.MainMenu
 {
     [Serializable]
     public class MainMenuButtonData
     {
-        public string Text;
-        public int ID;
+        [field: SerializeField] public string Text { get; private set; }
+        [field: SerializeField] public int ID { get; private set; }
     }
     public class MainMenu : MonoBehaviour
     {
@@ -20,11 +20,13 @@ namespace UI.MainMenu
         [SerializeField] private Transform _container;
 
         private List<MainMenuButton> _buttons = new List<MainMenuButton>();
+        
         private SceneLoader _loader;
 
-        private void Start()
+        [Inject]
+        private void Construct(SceneLoader sceneLoader)
         {
-            _loader = FindObjectOfType<SceneLoader>();
+            _loader = sceneLoader;
             
             foreach (var data in _datas)
             {
@@ -45,7 +47,7 @@ namespace UI.MainMenu
                         _loader.LoadScene(Consts.Scenes.GameScene);
                         break;
                     case 2:
-                        Debug.Log("ShareButtonClicked");
+                        Debug.Log("ShareButtonClicked"); //TODO don't forget to implement this later
                         break;
                 }
             }

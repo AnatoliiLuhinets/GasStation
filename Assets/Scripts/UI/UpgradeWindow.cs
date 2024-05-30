@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Data;
+using Managers;
 using UnityEngine;
+using Zenject;
 
 namespace UI
 {
@@ -11,6 +13,15 @@ namespace UI
         [SerializeField] private RectTransform _container;
 
         private List<UpgradableItemPanel> _panels = new List<UpgradableItemPanel>();
+        private UpgradableItemsPool _itemsPool;
+        private MoneyService _moneyService;
+
+        [Inject]
+        private void Construct(UpgradableItemsPool pool, MoneyService moneyService)
+        {
+            _itemsPool = pool;
+            _moneyService = moneyService;
+        }
         
         public override void OpenPanel()
         {
@@ -20,9 +31,11 @@ namespace UI
             foreach (var item in _dataLibrary.ObjectDatas)
             {
                 var instance = Instantiate(_panelPrefab, _container);
-                instance.Init(item);
+                instance.Init(item, _itemsPool, _moneyService);
                 _panels.Add(instance);
             }
+            
+            base.OpenPanel();
         }
 
         private void Clear()

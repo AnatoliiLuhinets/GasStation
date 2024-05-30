@@ -21,11 +21,6 @@ namespace Environment
         }
 
         private bool _registeredInKeeper = false;
-
-        public void SetKeeperRuntime(BaseComponentsKeeper baseComponentsKeeper)
-        {
-            BaseComponentsKeeper = baseComponentsKeeper;
-        }
         
         protected virtual void OnValidate()
         {
@@ -40,7 +35,7 @@ namespace Environment
             TryToRegisterObjectInKeeper();
         }
 
-        protected void TryToRegisterObjectInKeeper()
+        private void TryToRegisterObjectInKeeper()
         {
             if(_registeredInKeeper)
                 return;

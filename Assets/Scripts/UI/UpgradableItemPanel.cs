@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Data;
 using Environment;
 using Interfaces;
@@ -23,12 +21,14 @@ namespace UI
         private MoneyService _moneyService;
         private Upgrades _nextUpgrade;
         private ObjectData _objectData;
-        public void Init(ObjectData objectData)
+        
+        public void Init(ObjectData objectData, UpgradableItemsPool pool, MoneyService moneyService)
         {
             _objectData = objectData;
-            
-            _upgradableItem = FindObjectsOfType<UpgradableItem>().FirstOrDefault((n) => n.GetID() == objectData.ID);
-            _moneyService = FindObjectOfType<MoneyService>();
+            _upgradableItem = pool.GetItem(objectData);
+            _moneyService = moneyService;
+
+            _moneyService.MoneyCountUpdated += UpdateInteractable;
 
             UpdateView();
             
@@ -59,7 +59,7 @@ namespace UI
                 return;
             }
                 
-            if (_moneyService.MoneyCount >= _nextUpgrade.UpgradeCost)
+            if (_moneyService.GetMoneyCount() >= _nextUpgrade.UpgradeCost)
             {
                 _upgradableItem.Upgrade();
                 _moneyService.Spend(_nextUpgrade.UpgradeCost);
@@ -67,7 +67,7 @@ namespace UI
             }
         }
 
-        private void Update()
+        private void UpdateInteractable(int money)
         {
             if (!_moneyService || _nextUpgrade == null)
             {
@@ -75,12 +75,13 @@ namespace UI
                 return;
             }
 
-            _button.interactable = _moneyService.MoneyCount >= _nextUpgrade.UpgradeCost;
+            _button.interactable = money >= _nextUpgrade.UpgradeCost;
         }
 
         private void OnDestroy()
         {
             _button.onClick.RemoveAllListeners();
+            _moneyService.MoneyCountUpdated -= UpdateInteractable;
         }
     }
 }

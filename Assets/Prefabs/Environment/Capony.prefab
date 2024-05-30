@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 257525070907422364}
   - component: {fileID: 2706986343299265012}
   - component: {fileID: 341026186436612521}
-  - component: {fileID: 146146811}
   m_Layer: 0
   m_Name: Capony
   m_TagString: Untagged
@@ -123,19 +122,6 @@ MonoBehaviour:
   <CurrentUpgradeID>k__BackingField: 1
   _objectData: {fileID: 11400000, guid: 312d21d5fdc60a44bbb22bf107c926ed, type: 2}
   _upgradeEffect: {fileID: 507675884549270803}
---- !u!114 &146146811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 341026186436612523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b741c9e9c99284280ac43ee0512254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseComponentsKeeper: {fileID: 2706986343299265012}
 --- !u!1 &341026186471925443
 GameObject:
   m_ObjectHideFlags: 0

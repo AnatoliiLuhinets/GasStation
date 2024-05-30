@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 namespace Constants
@@ -19,8 +20,8 @@ namespace Constants
 
         public static class SaveSystem
         {
-            public static readonly string ItemPath = $"{Application.persistentDataPath}/upgradableItem.json";
-            public static readonly string UserProgress = $"{Application.persistentDataPath}/UserProgress.json";
+            public static readonly string ItemPath = Path.Combine(Application.persistentDataPath + "/upgradableItem.json");
+            public static readonly string UserProgress = Path.Combine(Application.persistentDataPath + "/UserProgress.json");
         }
     }
 }

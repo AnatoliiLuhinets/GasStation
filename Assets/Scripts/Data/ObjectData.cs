@@ -1,6 +1,5 @@
 using System;
 using System.Text.RegularExpressions;
-using Environment;
 using UnityEngine;
 
 namespace Data
@@ -11,7 +10,6 @@ namespace Data
         [field: SerializeField] public Sprite Icon;
         [field: SerializeField] public string Name;
         [field: SerializeField] public string ID { get; private set; }
-        [field: SerializeField] public UpgradableItem Prefab;
         
         [ContextMenu("Update ID")]
         private void UpdateID()

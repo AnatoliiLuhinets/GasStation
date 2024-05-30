@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3178625670965311626}
   - component: {fileID: 3153284738468557096}
-  - component: {fileID: 88033506568023492}
   - component: {fileID: 793244823630153418}
   - component: {fileID: 3825175442461767973}
   m_Layer: 0
@@ -63,19 +62,6 @@ MonoBehaviour:
   <CurrentUpgradeID>k__BackingField: 1
   _objectData: {fileID: 11400000, guid: 7bcc36791917593419dec7ab19df5b99, type: 2}
   _upgradeEffect: {fileID: 5275007587793925330}
---- !u!114 &88033506568023492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4426517805340560949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b741c9e9c99284280ac43ee0512254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseComponentsKeeper: {fileID: 3825175442461767973}
 --- !u!114 &793244823630153418
 MonoBehaviour:
   m_ObjectHideFlags: 0

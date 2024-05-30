@@ -1,8 +1,8 @@
-using System;
 using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI
 {
@@ -16,10 +16,12 @@ namespace UI
 
         private MoneyService _moneyService;
 
-        private void Start()
+        [Inject]
+        private void Construct(MoneyService moneyService)
         {
-            _moneyService = FindObjectOfType<MoneyService>();
-            _coins.text = _moneyService.MoneyCount.ToString();
+            _moneyService = moneyService;
+            
+            _coins.text = _moneyService.GetMoneyCount().ToString();
 
             _moneyService.MoneyCountUpdated += OnMoneyCountUpdated;
             

@@ -4,6 +4,7 @@ using Managers;
 using UI.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI
 {
@@ -15,6 +16,12 @@ namespace UI
 
         private SceneLoader _sceneLoader;
 
+        [Inject]
+        private void Construct(SceneLoader sceneLoader)
+        {
+            _sceneLoader = sceneLoader;
+        }
+        
         protected override void OnAwake()
         {
             if(PlayerPrefsExtensions.HasKey(Consts.AudioState.AudioVolumeValueKey))
@@ -26,8 +33,6 @@ namespace UI
             {
                 AudioManager.Instance.SetAudioState(PlayerPrefsExtensions.GetBool(Consts.AudioState.AudioStateKey));
             }
-            
-            _sceneLoader = FindObjectOfType<SceneLoader>();
             
             _exitButton.onClick.AddListener(OnExitButtonClicked);
             _soundsSlider.onValueChanged.AddListener(OnSoundsSliderValueChanged);
@@ -58,6 +63,7 @@ namespace UI
         public override void OpenPanel()
         {
             MainPanel.SetActive(true);
+            base.OpenPanel();
         }
     }
 }

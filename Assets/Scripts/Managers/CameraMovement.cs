@@ -10,7 +10,7 @@ namespace Managers
         private Vector3 _lastMousePosition;
         private Vector2 _initialAngle;
         private float _currentYRotation;
-        private float _maxRotationAngle = 30f;
+        private float _maxRotationAngle = 15f;
 
         private void Start()
         {

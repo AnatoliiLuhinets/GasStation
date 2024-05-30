@@ -1,32 +1,34 @@
 using System;
 using System.Collections.Generic;
+using Common;
 using Constants;
+using Cysharp.Threading.Tasks;
 using Environment;
-using Interfaces;
-using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 namespace Managers
 {
     public class MoneyService : MonoBehaviour
     {
         public event Action<int> MoneyCountUpdated;
-        [field: SerializeField] public int MoneyCount { get; private set; } = 60;
+        [field: SerializeField] private int MoneyCount { get; set; } = 60;
 
-        private List<Upgradable> _upgradables;
-        private GasStation _gasStation;
+        private List<UpgradableItem> _upgradables;
+        private SignalBus _signalBus;
 
-        private void Awake()    
+        [Inject]
+        private void Construct(SignalBus signalBus, UpgradableItemsPool pool)
         {
-            var loadedMoney = SaveService.LoadUserMoney(Consts.SaveSystem.UserProgress);
+            _upgradables = pool.GetAllItems();
+            _signalBus = signalBus;
+            _signalBus.Subscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
+            
+            var loadedMoney = SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
             MoneyCount = loadedMoney.HasValue ? loadedMoney.Value : MoneyCount; 
-
-            _gasStation = FindObjectOfType<GasStation>();
-            _gasStation.OnServiceEnd += CalculateRevenue;
-            _upgradables = new List<Upgradable>(FindObjectsOfType<Upgradable>());
         }
 
-        public void CalculateRevenue()
+        private void CalculateRevenue()
         {
             foreach (var upgradable in _upgradables)
             {
@@ -34,7 +36,7 @@ namespace Managers
                 MoneyCount += currentUpgrade.Profit;
             }
 
-            SaveService.SaveUserMoney(MoneyCount, Consts.SaveSystem.UserProgress);
+            SaveService.SaveUserProgress(MoneyCount, Consts.SaveSystem.UserProgress).Forget();
 
             MoneyCountUpdated?.Invoke(MoneyCount);
         }
@@ -43,15 +45,20 @@ namespace Managers
         {
             MoneyCount -= value;
 
-            SaveService.SaveUserMoney(MoneyCount, Consts.SaveSystem.UserProgress);
+            SaveService.SaveUserProgress(MoneyCount, Consts.SaveSystem.UserProgress).Forget();
 
             MoneyCountUpdated?.Invoke(MoneyCount);
         }
 
+        public int GetMoneyCount()
+        {
+            return MoneyCount;
+        }
+        
+
         private void OnDestroy()
         {
-            if (_gasStation != null)
-                _gasStation.OnServiceEnd -= CalculateRevenue;
+            _signalBus.TryUnsubscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
         }
     }
 }

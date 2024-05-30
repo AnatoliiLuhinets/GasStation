@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +41,7 @@ namespace Environment
                 SpinWheels();
                 yield return null;
             }
+            
             IsHere = true;
         }
 

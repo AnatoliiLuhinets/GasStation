@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
 using Constants;
+using Cysharp.Threading.Tasks;
 using Data;
 using Interfaces;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Environment
 {
-    public class UpgradableItem : Upgradable
+    public class UpgradableItem : Upgradable, ISavable
     {
         [SerializeField] private ObjectData _objectData;
         [SerializeField] private ParticleSystem _upgradeEffect;
@@ -22,12 +18,12 @@ namespace Environment
             base.UpdateView();
         }
 
-        private void Save()
+        public void Save()
         {
-            SaveService.SaveItem(_objectData.ID, CurrentUpgradeID, Consts.SaveSystem.ItemPath);
+            SaveService.SaveItem(_objectData.ID, CurrentUpgradeID, Consts.SaveSystem.ItemPath).Forget();
         }
 
-        private void Load()
+        public void Load()
         {
             var currentSave =  SaveService.LoadItem(_objectData.ID, Consts.SaveSystem.ItemPath);
 
@@ -35,6 +31,11 @@ namespace Environment
             {
                 CurrentUpgradeID = currentSave.Value;
             }
+        }
+        
+        public string GetItemID()
+        {
+            return _objectData.ID;
         }
         
         public override void Upgrade()
@@ -49,11 +50,6 @@ namespace Environment
             _upgradeEffect.Play();
             
             base.UpdateView();
-        }
-
-        public string GetID()
-        {
-            return _objectData.ID;
         }
     }
 }

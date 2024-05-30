@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +13,6 @@ namespace Environment
     }
     public class GasStation : BaseComponent
     {
-        public event Action OnServiceEnd;
         
         [SerializeField] private List<GasPoint> _points = new List<GasPoint>();
 
@@ -29,7 +27,6 @@ namespace Environment
         public void EndService(GasPoint point)
         {
             point.IsFree = true;
-            OnServiceEnd?.Invoke();
         }
     }
 }
