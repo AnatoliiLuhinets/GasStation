@@ -61,6 +61,11 @@ namespace Managers
         {
             foreach (var car in _cars)
             {
+                if (!car)
+                {
+                    continue;
+                }
+                
                 if (!car.gameObject.activeSelf)
                 {
                     ServiceCar(car).Forget();
