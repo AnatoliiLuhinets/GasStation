@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Constants;
 using Managers;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +19,7 @@ namespace UI.MainMenu
         [SerializeField] private MainMenuButton _mainMenuButtonPrefab;
         [SerializeField] private List<MainMenuButtonData> _datas;
         [SerializeField] private Transform _container;
+        [SerializeField] private TextMeshProUGUI _moneyCount;
 
         private List<MainMenuButton> _buttons = new List<MainMenuButton>();
         
@@ -35,6 +37,9 @@ namespace UI.MainMenu
                 instance.ButtonClicked += OnMainMenuButtonClicked;
                 _buttons.Add(instance);
             }
+
+            var loadedMoney = SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
+            _moneyCount.text = loadedMoney.HasValue ? loadedMoney.Value.ToString() : Consts.Values.DefaultMoneyCount.ToString();
         }
 
         private void OnMainMenuButtonClicked(ButtonBase button)

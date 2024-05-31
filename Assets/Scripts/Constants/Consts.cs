@@ -23,5 +23,10 @@ namespace Constants
             public static readonly string ItemPath = Path.Combine(Application.persistentDataPath + "/upgradableItem.json");
             public static readonly string UserProgress = Path.Combine(Application.persistentDataPath + "/UserProgress.json");
         }
+        
+        public static class Values
+        {
+            public const int DefaultMoneyCount = 60;
+        }
     }
 }

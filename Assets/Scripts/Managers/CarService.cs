@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Common;
 using Environment;
 using UnityEngine;
@@ -22,6 +23,9 @@ namespace Managers
         private const int _maxActiveCars = 8;
         private float SpawnDelay => Random.Range(7f, 12f);
         private float ServiceDelay => Random.Range(3f, 6f);
+        
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
 
         [Inject]
         private void Construct(GasStation station, SpawnService<BaseComponent> spawnService, SignalBus signalBus)
@@ -70,7 +74,7 @@ namespace Managers
             car.gameObject.SetActive(true);
             var freePoint = _gasStation.GetPoint();
             
-            await UniTask.WaitWhile(() => !car.MoveTo(freePoint.Transform.position));
+            await UniTask.WaitWhile(() => !car.MoveTo(freePoint.Transform.position), cancellationToken: _cancellationTokenSource.Token);
             
             CompleteService(car, freePoint).Forget();
         }
@@ -82,10 +86,15 @@ namespace Managers
             _gasStation.EndService(gasPoint);
             _signalBus.Fire(new EnvironmentSignals.OnServiceEnd());
 
-            await UniTask.WaitWhile(() => !car.MoveTo(_exitPoint.position));
+            await UniTask.WaitWhile(() => !car.MoveTo(_exitPoint.position), cancellationToken: _cancellationTokenSource.Token);
             
             car.TeleportTo(_startPosition.position);
             car.gameObject.SetActive(false); 
+        }
+        
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
         }
     }
 }

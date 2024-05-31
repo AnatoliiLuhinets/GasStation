@@ -12,7 +12,7 @@ namespace Managers
     public class MoneyService : MonoBehaviour
     {
         public event Action<int> MoneyCountUpdated;
-        [field: SerializeField] private int MoneyCount { get; set; } = 60;
+        [field: SerializeField] private int MoneyCount { get; set; }
 
         private List<UpgradableItem> _upgradables;
         private SignalBus _signalBus;
@@ -25,7 +25,7 @@ namespace Managers
             _signalBus.Subscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
             
             var loadedMoney = SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
-            MoneyCount = loadedMoney.HasValue ? loadedMoney.Value : MoneyCount; 
+            MoneyCount = loadedMoney.HasValue ? loadedMoney.Value : Consts.Values.DefaultMoneyCount; 
         }
 
         private void CalculateRevenue()

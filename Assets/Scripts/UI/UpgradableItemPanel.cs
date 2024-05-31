@@ -75,7 +75,7 @@ namespace UI
                 return;
             }
 
-            _button.interactable = money >= _nextUpgrade.UpgradeCost;
+            _button.interactable = money >= _nextUpgrade.UpgradeCost && _nextUpgrade != null;
         }
 
         private void OnDestroy()

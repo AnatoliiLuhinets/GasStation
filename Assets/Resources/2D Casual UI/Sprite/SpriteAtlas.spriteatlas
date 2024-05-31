@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 1
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+    - {fileID: 2800000, guid: b25d7706dfdb2ae43a983382f365b398, type: 3}
+    - {fileID: 2800000, guid: 60401fbf78d74b94ea7930d65fbd0f95, type: 3}
+    - {fileID: 2800000, guid: 076131e32f3e1ac469b0dce235765ab0, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 3a8da0a0289eddd459c992add4125337, type: 3}
+  - {fileID: 21300000, guid: f2cd479338185a2429cb4ca0e0e3a36a, type: 3}
+  - {fileID: -503351023, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: 1348892169, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: 590562724, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: -1416747121, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: -1773256331, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: -1776504772, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: 2083925031, guid: cb49e3d31673adc44bce96e23d692adf, type: 3}
+  - {fileID: 21300000, guid: 6d8ce345ee8649e4c8d26369d4dbaedf, type: 3}
+  - {fileID: 21300000, guid: 07e05156dc16c5b40b2ceff5d75e1e33, type: 3}
+  - {fileID: 21300000, guid: 7a971b670ea680b48bcb5fc2521b2bef, type: 3}
+  - {fileID: 21300000, guid: 63c2fbf7f55a3a243897f1c1cfc1de7d, type: 3}
+  - {fileID: 21300000, guid: b7621e78140be254c996362498398b2d, type: 3}
+  - {fileID: 21300000, guid: 0f588eb812d01e54d8878c6f6fd5e900, type: 3}
+  - {fileID: 21300000, guid: d4d442492b8142d45b8a17075b62d415, type: 3}
+  - {fileID: 21300000, guid: 704b0d69ea60a1e4ca184841abf9f179, type: 3}
+  - {fileID: 21300000, guid: c7290fc92961c7e418a7b6c882cc5609, type: 3}
+  - {fileID: 21300000, guid: 1a17b93a7fb8e0e4280ccad689f5c62a, type: 3}
+  - {fileID: 21300000, guid: b9884a8af8731204dbadbd46679b0ffd, type: 3}
+  - {fileID: 21300000, guid: 32d918fcd92870e479b1cefbeef7575d, type: 3}
+  - {fileID: 21300000, guid: c6863f1ee99abd64d98d64ba67b2a9e0, type: 3}
+  - {fileID: 21300000, guid: 346ad05f85c193f4e9208138f93fd0e4, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - concrete
+  - tile_slingshot_andryBirds
+  - menu_atlas_003_5
+  - menu_atlas_003_4
+  - menu_atlas_003_6
+  - menu_atlas_003_1
+  - menu_atlas_003_0
+  - menu_atlas_003_3
+  - menu_atlas_003_2
+  - fader
+  - update_ragdoll_512
+  - wood
+  - tile_4
+  - bricks
+  - mod-store_logo
+  - tile_3
+  - mod-store_name
+  - box
+  - tile_5
+  - tile_1
+  - tile_2
+  - metal
+  - ComingSoon
+  m_RenderDataMap: {}
+  m_Tag: SpriteAtlas
+  m_IsVariant: 0
