@@ -117,11 +117,11 @@ MonoBehaviour:
   <Upgrades>k__BackingField:
   - Stage: {fileID: 5233917573917112791}
     UpgradeCost: 50
-    Profit: 25
+    Profit: 10
     ID: 1
   - Stage: {fileID: 5233917574378161459}
     UpgradeCost: 175
-    Profit: 60
+    Profit: 15
     ID: 2
   <CurrentUpgradeID>k__BackingField: 1
   _objectData: {fileID: 11400000, guid: 0c402cab6d0a65549aef241de4586017, type: 2}

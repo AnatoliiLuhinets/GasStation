@@ -50,6 +50,8 @@ namespace UI
             _profit.text = upgrade.Profit.ToString();
             _upgrade.text = _upgradableItem.GetCurrentUpgrade().ID.ToString();
             _name.text = _objectData.Name;
+
+            UpdateInteractable(_moneyService.GetMoneyCount());
         }
 
         private void TryUpgrade()
@@ -69,7 +71,7 @@ namespace UI
 
         private void UpdateInteractable(int money)
         {
-            if (!_moneyService || _nextUpgrade == null)
+            if (_upgradableItem.GetNextUpgrade() == null)
             {
                 _button.interactable = false;
                 return;

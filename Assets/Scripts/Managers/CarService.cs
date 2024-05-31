@@ -21,8 +21,8 @@ namespace Managers
         private List<CarAIController> _cars = new List<CarAIController>();
 
         private const int _maxActiveCars = 8;
-        private float SpawnDelay => Random.Range(7f, 12f);
-        private float ServiceDelay => Random.Range(3f, 6f);
+        private float SpawnDelay => Random.Range(4f, 8f);
+        private float ServiceDelay => Random.Range(2f, 4f);
         
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 

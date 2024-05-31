@@ -20,7 +20,7 @@ namespace Constants
 
         public static class SaveSystem
         {
-            public static readonly string ItemPath = Path.Combine(Application.persistentDataPath + "/upgradableItem.json");
+            public static readonly string ItemPath = Path.Combine(Application.persistentDataPath + "/UpgradableItem.json");
             public static readonly string UserProgress = Path.Combine(Application.persistentDataPath + "/UserProgress.json");
         }
         
