@@ -37,9 +37,14 @@ namespace UI.MainMenu
                 instance.ButtonClicked += OnMainMenuButtonClicked;
                 _buttons.Add(instance);
             }
+            
+            LoadMoneyCount();
+        }
 
+        private void LoadMoneyCount()
+        {
             var loadedMoney = SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
-            _moneyCount.text = loadedMoney.HasValue ? loadedMoney.Value.ToString() : Consts.Values.DefaultMoneyCount.ToString();
+            _moneyCount.text = loadedMoney.ToString();
         }
 
         private void OnMainMenuButtonClicked(ButtonBase button)

@@ -24,8 +24,13 @@ namespace Managers
             _signalBus = signalBus;
             _signalBus.Subscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
             
-            var loadedMoney = SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
-            MoneyCount = loadedMoney.HasValue ? loadedMoney.Value : Consts.Values.DefaultMoneyCount; 
+             LoadMoneyCount();
+        }
+        
+        private void LoadMoneyCount()
+        {
+            var loadedMoney =  SaveService.LoadUserProgress(Consts.SaveSystem.UserProgress);
+            MoneyCount = loadedMoney;
         }
 
         private void CalculateRevenue()
@@ -58,7 +63,10 @@ namespace Managers
 
         private void OnDestroy()
         {
-            _signalBus.TryUnsubscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
+            if (_signalBus != null)
+            {
+                _signalBus.TryUnsubscribe<EnvironmentSignals.OnServiceEnd>(CalculateRevenue);
+            }
         }
     }
 }

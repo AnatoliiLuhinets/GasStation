@@ -27,6 +27,7 @@ namespace Constants
         public static class Values
         {
             public const int DefaultMoneyCount = 60;
+            public const int DefaultUpgradeID = 1;
         }
     }
 }

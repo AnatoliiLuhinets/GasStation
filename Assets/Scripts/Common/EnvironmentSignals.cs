@@ -6,9 +6,6 @@ namespace Common
     {
         public class OnServiceEnd
         {
-            public OnServiceEnd()
-            {
-            }
         }
     }
 }

@@ -28,5 +28,10 @@ namespace UI
         {
             Toggle.isOn = state;
         }
+        
+        protected virtual void OnDestroy()
+        {
+            Toggle.onValueChanged.RemoveListener(OnToggleClicked);
+        }
     }
 }

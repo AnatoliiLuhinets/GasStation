@@ -1,10 +1,11 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Interfaces
 {
     public interface ISavable
     {
-        void Save();
-        void Load();
+        UniTask Save();
+        UniTask Load();
     }
 }

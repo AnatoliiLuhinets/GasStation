@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Environment
 {
-    public class BaseComponentsKeeper : MonoBehaviour
+    public class ComponentsKeeper : MonoBehaviour
     {
-        [SerializeField] private BaseComponentsKeeper ParentKeeper;
-        [SerializeField] private List<BaseComponentsKeeper> ChildKeepers = new ();
+        [SerializeField] private ComponentsKeeper ParentKeeper;
+        [SerializeField] private List<ComponentsKeeper> ChildKeepers = new ();
 
-        public event Action<BaseComponentsKeeper> OnDestroying;
+        public event Action<ComponentsKeeper> OnDestroying;
         
         private readonly List<BaseComponent> _componentLinks = new();
 
@@ -20,7 +20,7 @@ namespace Environment
         {
             foreach (var childKeeper in ChildKeepers)
             {
-                childKeeper.OnDestroying += TryToRemoveChildKeeper;
+                childKeeper.OnDestroying += RemoveChildKeeper;
             }
         }
 
@@ -28,7 +28,7 @@ namespace Environment
         {
             foreach (var childKeeper in ChildKeepers)
             {
-                childKeeper.OnDestroying -= TryToRemoveChildKeeper;
+                childKeeper.OnDestroying -= RemoveChildKeeper;
             }
 
             OnDestroying?.Invoke(this);
@@ -73,7 +73,7 @@ namespace Environment
             return default;
         }
         
-        public BaseComponentsKeeper GetRoot()
+        public ComponentsKeeper GetRoot()
         {
             if (IsRootKeeper)
                 return this;
@@ -120,7 +120,7 @@ namespace Environment
             return ParentKeeper.GetAllComponentsOfTypeInRoot<T>(includeChildrenKeepers);
         }
 
-        public void TryToSetParentKeeper(BaseComponentsKeeper parentKeeper)
+        public void TryToSetParentKeeper(ComponentsKeeper parentKeeper)
         {
             if(!transform.IsChildOf(parentKeeper.transform))
                 return;
@@ -128,7 +128,7 @@ namespace Environment
             ParentKeeper = parentKeeper;
         }
 
-        private void TryToAddChildKeeper(BaseComponentsKeeper childKeeper)
+        private void TryToAddChildKeeper(ComponentsKeeper childKeeper)
         {
             if(!childKeeper.transform.IsChildOf(transform))
                 return;
@@ -137,17 +137,17 @@ namespace Environment
                 return;
             
             ChildKeepers.Add(childKeeper);
-            childKeeper.OnDestroying += TryToRemoveChildKeeper;
+            childKeeper.OnDestroying += RemoveChildKeeper;
             InvokeChildKeepersChangedRecursively();
         }
 
-        private void TryToRemoveChildKeeper(BaseComponentsKeeper childKeeper)
+        private void RemoveChildKeeper(ComponentsKeeper childKeeper)
         {
             if(!ChildKeepers.Contains(childKeeper))
                 return;
 
             ChildKeepers.Remove(childKeeper);
-            childKeeper.OnDestroying -= TryToRemoveChildKeeper;
+            childKeeper.OnDestroying -= RemoveChildKeeper;
             InvokeChildKeepersChangedRecursively();
         }
 
@@ -162,12 +162,12 @@ namespace Environment
             var prevParentKeeper = ParentKeeper;
             
             var parent = transform.parent;
-            ParentKeeper = parent ? parent.GetComponentInParent<BaseComponentsKeeper>(true) : null;
+            ParentKeeper = parent ? parent.GetComponentInParent<ComponentsKeeper>(true) : null;
 
             if (prevParentKeeper != ParentKeeper)
             {
                 if(prevParentKeeper)
-                    prevParentKeeper.TryToRemoveChildKeeper(this);
+                    prevParentKeeper.RemoveChildKeeper(this);
                 
                 if(ParentKeeper)
                     ParentKeeper.TryToAddChildKeeper(this);
@@ -177,13 +177,13 @@ namespace Environment
         private void OnValidate()
         {
             var parent = transform.parent;
-            ParentKeeper = parent ? parent.GetComponentInParent<BaseComponentsKeeper>(true) : null;
+            ParentKeeper = parent ? parent.GetComponentInParent<ComponentsKeeper>(true) : null;
             SetChildKeepers();
         }
 
         protected void SetChildKeepers()
         {
-            var possibleChildKeepers = GetComponentsInChildren<BaseComponentsKeeper>(true)
+            var possibleChildKeepers = GetComponentsInChildren<ComponentsKeeper>(true)
                 .Where(k => k != this)
                 .ToList();
 

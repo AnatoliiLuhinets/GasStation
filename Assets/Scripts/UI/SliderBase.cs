@@ -18,5 +18,10 @@ namespace UI
         {
             SliderValueChanged?.Invoke(value);
         }
+        
+        protected virtual void OnDestroy()
+        {
+            Slider.onValueChanged.AddListener(OnSliderChanged);
+        }
     }
 }

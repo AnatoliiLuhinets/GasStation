@@ -14,12 +14,12 @@ namespace Managers
         private async UniTask LoadSceneWithLoadingScreen(string sceneName)
         {
             SceneManager.LoadSceneAsync(Constants.Consts.Scenes.LoadingScene, LoadSceneMode.Single);
-
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-
-            await new WaitWhile(() => !operation.isDone);
+            
+            await UniTask.WaitWhile(() => !operation.isDone);
             
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         }
+
     }
 }

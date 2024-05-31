@@ -1,22 +1,23 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Environment
 {
     public class BaseComponent : MonoBehaviour
     {
-        [SerializeField] private BaseComponentsKeeper _baseComponentsKeeper;
+        [FormerlySerializedAs("_baseComponentsKeeper")] [SerializeField] private ComponentsKeeper componentsKeeper;
         
-        public BaseComponentsKeeper BaseComponentsKeeper
+        public ComponentsKeeper ComponentsKeeper
         {
             get
             {
-                TryToRegisterObjectInKeeper();
-                return _baseComponentsKeeper;
+                ToRegisterInKeeper();
+                return componentsKeeper;
             }
             protected set
             {
-                _baseComponentsKeeper = value;
-                TryToRegisterObjectInKeeper();
+                componentsKeeper = value;
+                ToRegisterInKeeper();
             }
         }
 
@@ -24,36 +25,36 @@ namespace Environment
         
         protected virtual void OnValidate()
         {
-            _baseComponentsKeeper = GetComponentInParent<BaseComponentsKeeper>(true);
+            componentsKeeper = GetComponentInParent<ComponentsKeeper>(true);
         }
 
         protected virtual void Awake()
         {
-            if(_baseComponentsKeeper == null)
-                _baseComponentsKeeper = GetComponentInParent<BaseComponentsKeeper>(true);
+            if(componentsKeeper == null)
+                componentsKeeper = GetComponentInParent<ComponentsKeeper>(true);
             
-            TryToRegisterObjectInKeeper();
+            ToRegisterInKeeper();
         }
 
-        private void TryToRegisterObjectInKeeper()
+        private void ToRegisterInKeeper()
         {
             if(_registeredInKeeper)
                 return;
             
-            if (!_baseComponentsKeeper)
+            if (!componentsKeeper)
                 return;
             
-            _baseComponentsKeeper.TryToAddComponent(this);
+            componentsKeeper.TryToAddComponent(this);
             
             _registeredInKeeper = true;
         }
 
         protected virtual void OnDestroy()
         {
-            if(!_baseComponentsKeeper)
+            if(!componentsKeeper)
                 return;
             
-            _baseComponentsKeeper.TryToDeleteComponent(this);
+            componentsKeeper.TryToDeleteComponent(this);
         }
     }
 }

@@ -14,23 +14,19 @@ namespace Environment
 
         private void Start()
         {
-            Load();
+            Load().Forget();
             base.UpdateView();
         }
 
-        public void Save()
+        public async UniTask Save()
         {
-            SaveService.SaveItem(_objectData.ID, CurrentUpgradeID, Consts.SaveSystem.ItemPath).Forget();
+            await SaveService.SaveItem(_objectData.ID, CurrentUpgradeID, Consts.SaveSystem.ItemPath);
         }
 
-        public void Load()
+        public async UniTask Load()
         {
             var currentSave =  SaveService.LoadItem(_objectData.ID, Consts.SaveSystem.ItemPath);
-
-            if (currentSave != null)
-            {
-                CurrentUpgradeID = currentSave.Value;
-            }
+            CurrentUpgradeID = currentSave;
         }
         
         public string GetItemID()

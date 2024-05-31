@@ -18,5 +18,10 @@ namespace UI
         {
             ButtonClicked?.Invoke(this);
         }
+
+        protected virtual void OnDestroy()
+        {
+            Button.onClick.RemoveListener(OnButtonClicked);
+        }
     }
 }

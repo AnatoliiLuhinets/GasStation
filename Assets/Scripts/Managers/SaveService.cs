@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Constants;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -64,22 +65,22 @@ namespace Managers
             }
         }
 
-        public static int? LoadItem(string objectId, string path)
+        public static int LoadItem(string objectId, string path)
         {
-            if (File.Exists(path))
+            try
             {
                 string allItemsJson = File.ReadAllText(path);
                 AllItemsState allItemsState = JsonUtility.FromJson<AllItemsState>(allItemsJson);
-                if (allItemsState != null)
-                {
-                    var item = allItemsState.Items.Find(x => x.ObjectID == objectId);
-                    if (item != null)
-                    {
-                        return item.CurrentID;
-                    }
-                }
+
+                var item = allItemsState.Items.Find(x => x.ObjectID == objectId);
+            
+                return item.CurrentID;
             }
-            return null;
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                return Consts.Values.DefaultUpgradeID;
+            }
         }
 
         public static async UniTask SaveUserProgress(int moneyCount, string path)
@@ -96,18 +97,22 @@ namespace Managers
             }
         }
 
-        public static int? LoadUserProgress(string path)
+        public static int LoadUserProgress(string path)
         {
-            if (File.Exists(path))
+            if (!HasFile(path))
             {
-                string moneyJson = File.ReadAllText(path);
-                UserMoney userMoney = JsonUtility.FromJson<UserMoney>(moneyJson);
-                if (userMoney != null)
-                {
-                    return userMoney.MoneyCount;
-                }
+                return Consts.Values.DefaultMoneyCount;
             }
-            return null;
+            
+            string moneyJson = File.ReadAllText(path);
+            UserMoney userMoney = JsonUtility.FromJson<UserMoney>(moneyJson);
+            
+            return userMoney.MoneyCount;
+        }
+
+        private static bool HasFile(string path)
+        {
+            return File.Exists(path);
         }
     }
 }

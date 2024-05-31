@@ -50,7 +50,7 @@ namespace Managers
                 }
             }
 
-            while (true)
+            while (Application.isPlaying)
             {
                 ActivateNextCar();
                 await UniTask.Delay(System.TimeSpan.FromSeconds(SpawnDelay));
